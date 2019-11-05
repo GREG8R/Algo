@@ -1,0 +1,47 @@
+;<input> 5 3
+<input> 1111 111
+;<input> 1 1000000
+;<input> 1000000 1
+;<input> 123 0
+;<input> 0 456
+; we could see out of memory on this test. 
+; result 1410065408 instead of right 10000000000
+;<input> 1000000 10000
+load =0
+store 5 ;in tenth will be save result
+read 1
+load 1
+jz end  ;if first input value == 0 write 0
+read 2
+load 2
+jz end  ;if second input value == 0 write 0
+
+load 1
+sub 2
+jgtz firstValMore
+load 1
+store 4 ; first iterator
+load 2
+store 3 ; second value
+jmp toForeach
+firstValMore:
+load 1
+store 3 ; first value
+load 2
+store 4 ; second iterator
+
+toForeach:
+loop:
+	load 5
+	add 3
+	store 5 ; save summ
+
+	load 4
+	sub =1
+	store 4 ; update iterator
+jgtz loop
+
+
+end:
+write 5
+halt
