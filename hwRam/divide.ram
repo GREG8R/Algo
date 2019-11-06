@@ -1,0 +1,59 @@
+;<input> 50 30
+;<input> 25 25
+;<input> 5 30
+;<input> 100001 2
+;<input> 0 123456
+;<input> 123456 0
+; input and output 
+<input> 123 1
+load =0
+store 5 ;in fifth will be save quotient
+store 6 ;in sixth will be save remainder
+read 1
+load 1
+jz end  ;if first input value == 0 write 0
+read 2
+load 2
+jz endWithoutWrite  ;if second input value == 0 write nothing and exit
+sub =1
+jz endWhenSecondOne
+
+load 2
+sub 1
+jgtz secondMore
+
+load 1
+store 3
+load 2
+store 4
+
+load 3
+sub 4
+loop:
+	store 3
+
+	load 5
+	add =1
+	store 5
+	
+	load 3
+	sub 4
+jgtz loop
+
+load 3
+store 6
+jmp end
+
+secondMore:
+write =0
+write 1
+jmp endWithoutWrite
+end:
+write 5
+write 6
+jmp endWithoutWrite
+endWhenSecondOne:
+write 1
+write =0
+endWithoutWrite:
+halt
