@@ -1,0 +1,90 @@
+<input> 5 4 3 0 2 1
+;<input> 8 0 1 2 3 4 5 6 7
+;<input> 8 7 6 5 4 3 2 1 0
+;<input> 0
+;<input> 1 8
+;<input> 7 7 7 7 7 7 7 7
+;big array, check that the array is stored correctly after all of increments
+;<input> 24 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7 0 1 2 3 4 5 6 7
+read 1
+load 1
+jz end
+sub =1
+jz endOne
+
+; read all array
+load =5
+add 1
+store 2
+loopRead:
+	read *2
+	load 2
+	sub =1
+	store 2
+
+	load 2
+	sub =5
+jgtz loopRead
+
+
+load =1
+store 2
+loopOut:
+	load 1
+	add =5
+	store 3
+	loopIn:
+		; 3 currentIndex
+		; 4 nextIndex
+		; 5 buffer for change
+		load 3
+		sub =1
+		store 4
+
+		load *4
+		sub *3
+		jgtz notChange
+		load *4
+		store 5
+		load *3
+		store *4
+		load 5
+		store *3
+		notChange:
+
+		; condition of exit and replace increment
+		load 4
+		store 3
+		sub =5
+		sub 2
+	jgtz loopIn
+	; replace increment
+	load 2
+	add =1
+	store 2
+
+	; condition of exit and
+	load 1
+	sub 2
+jgtz loopOut
+
+; write all array
+load =5
+add 1
+store 2
+loopWrite:
+	write *2
+	load 2
+	sub =1
+	store 2
+
+	load 2
+	sub =5
+jgtz loopWrite
+jmp end
+
+endOne:
+read 1
+write 1
+end:
+halt
