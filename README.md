@@ -1,2 +1,2 @@
-# OtusAlgo
-homework of otus algo course
+# algo
+homework of algo course
