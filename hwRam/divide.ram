@@ -1,11 +1,11 @@
-;<input> 50 30
+<input> 50 30
 ;<input> 25 25
 ;<input> 5 30
 ;<input> 100001 2
 ;<input> 0 123456
 ;<input> 123456 0
-; input and output 
-<input> 123 1
+; divisible equals quotient and fast worked
+;<input> 123 1
 load =0
 store 5 ;in fifth will be save quotient
 store 6 ;in sixth will be save remainder
