@@ -357,5 +357,8 @@ func TestPriorityQueue_Run(t *testing.T){
 		assert.Equal(t, elem, 12)
 		elem = queue.Dequeue()
 		assert.Equal(t, elem, 31)
+
+		elem = queue.Dequeue()
+		assert.Equal(t, elem, nil)
 	})
 }

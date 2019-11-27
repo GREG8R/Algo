@@ -61,6 +61,10 @@ func (q *Queue) Dequeue() interface{}{
 			q.indexOfPriorityForGet = i
 		}
 	}
+	
+	if q.array[q.indexOfPriorityForGet].IsEmpty {
+		return nil
+	}
 
 	return q.Dequeue()
 }
