@@ -55,6 +55,72 @@ type Array interface{
 }
 
 func main(){
+	testNewAndOldArrays()
+	testAllArraysParallels()
+	testAllArrayAddInMiddle()
+}
+
+func testAllArrayAddInMiddle(){
+	fmt.Println("Test all arrays")
+	simple := SimpleArray{
+		length: 0,
+		array:  []interface{}{},
+	}
+
+	vector := VectorArray{
+		length:    0,
+		array:     []interface{}{},
+		capResize: 100,
+	}
+
+	factor := FactorArray{
+		length:       0,
+		array:        []interface{}{},
+		factorResize: 2,
+	}
+
+	matrix := MatrixArray{
+		length:       0,
+		array:        make([][]interface{}, 1),
+		lengthPart:   100,
+		countOfPart:  1,
+		factorResize: 2,
+	}
+	matrix.array[0] = make([]interface{}, matrix.lengthPart)
+
+	inMiddleAdd(&simple, 100000, time.Now())
+	inMiddleAdd(&vector, 100000, time.Now())
+	inMiddleAdd(&factor, 100000, time.Now())
+	inMiddleAdd(&matrix, 100000, time.Now())
+}
+
+func inMiddleAdd(arr Array, count int, t time.Time){
+	for i := 0; i < 10; i++{
+		arr.Add(i, i)
+	}
+	for i := 10; i < count; i++{
+		arr.Add(i, i / 2)
+	}
+	outputString := ""
+	switch arr.(type) {
+	case *FactorArrayOld:
+		outputString = "oldFactor"
+	case *FactorArray:
+		outputString = "newFactor"
+	case *SimpleArrayOld:
+		outputString = "oldSimple"
+	case *SimpleArray:
+		outputString = "newSimple"
+	case *MatrixArray:
+		outputString = "matrix"
+	case *VectorArray:
+		outputString = "vector"
+	}
+	outputString = fmt.Sprintf("%s finished, count of operations: %d, time in milliseconds: %d", outputString, count, time.Now().Sub(t).Milliseconds())
+	fmt.Println(outputString)
+}
+
+func testAllArraysParallels (){
 	fmt.Println("Test all arrays")
 	simple := SimpleArray{
 		length: 0,
@@ -83,24 +149,23 @@ func main(){
 	matrix.array[0] = make([]interface{}, matrix.lengthPart)
 
 	wg := &sync.WaitGroup{}
-	nowTime := time.Now()
 	wg.Add(1)
-	go AddManyElements(&simple, 100000, wg, nowTime)
+	go AddManyElements(&simple, 100000, wg, time.Now())
 
 	wg.Add(1)
-	go AddManyElements(&vector, 100000, wg, nowTime)
+	go AddManyElements(&vector, 100000, wg, time.Now())
 
 	wg.Add(1)
-	go AddManyElements(&factor, 100000, wg, nowTime)
+	go AddManyElements(&factor, 100000, wg, time.Now())
 
 	wg.Add(1)
-	go AddManyElements(&matrix, 100000, wg, nowTime)
+	go AddManyElements(&matrix, 100000, wg, time.Now())
 
 	wg.Add(1)
-	go makeSlice(100000, wg, nowTime)
+	go makeSlice(100000, wg, time.Now())
 
 	wg.Add(1)
-	go app(100000, wg, nowTime)
+	go app(100000, wg, time.Now())
 
 	wg.Wait()
 }
@@ -143,4 +208,103 @@ func app(count int, wg *sync.WaitGroup, t time.Time){
 	}
 	fmt.Printf("app finished, count of operations: %d, time in milliseconds: %d\n", count, time.Now().Sub(t).Milliseconds())
 	wg.Done()
+}
+
+func testNewAndOldArrays (){
+	fmt.Println("Test new and old arrays")
+	newFactor := FactorArray{
+		length:       0,
+		array:        []interface{}{},
+		factorResize: 2,
+	}
+	oldFactor := FactorArrayOld{
+		length:       0,
+		array:        []interface{}{},
+		factorResize: 2,
+	}
+	inMiddleAdd(&newFactor, 100000, time.Now())
+	inMiddleAdd(&oldFactor, 100000, time.Now())
+
+	newFactor = FactorArray{
+		length:       0,
+		array:        []interface{}{},
+		factorResize: 2,
+	}
+	oldFactor = FactorArrayOld{
+		length:       0,
+		array:        []interface{}{},
+		factorResize: 2,
+	}
+	inMiddleAdd(&oldFactor, 100000, time.Now())
+	inMiddleAdd(&newFactor, 100000, time.Now())
+
+	newFactor = FactorArray{
+		length:       0,
+		array:        []interface{}{},
+		factorResize: 2,
+	}
+	oldFactor = FactorArrayOld{
+		length:       0,
+		array:        []interface{}{},
+		factorResize: 2,
+	}
+	inMiddleAdd(&oldFactor, 100000, time.Now())
+	inMiddleAdd(&newFactor, 100000, time.Now())
+
+	newFactor = FactorArray{
+		length:       0,
+		array:        []interface{}{},
+		factorResize: 2,
+	}
+	oldFactor = FactorArrayOld{
+		length:       0,
+		array:        []interface{}{},
+		factorResize: 2,
+	}
+	inMiddleAdd(&newFactor, 100000, time.Now())
+	inMiddleAdd(&oldFactor, 100000, time.Now())
+
+	oldSimple := SimpleArrayOld{
+		length: 0,
+		array:  []interface{}{},
+	}
+	newSimple := SimpleArray{
+		length: 0,
+		array:  []interface{}{},
+	}
+	inMiddleAdd(&newSimple, 50000, time.Now())
+	inMiddleAdd(&oldSimple, 50000, time.Now())
+
+	oldSimple = SimpleArrayOld{
+		length: 0,
+		array:  []interface{}{},
+	}
+	newSimple = SimpleArray{
+		length: 0,
+		array:  []interface{}{},
+	}
+	inMiddleAdd(&oldSimple, 50000, time.Now())
+	inMiddleAdd(&newSimple, 50000, time.Now())
+
+	oldSimple = SimpleArrayOld{
+		length: 0,
+		array:  []interface{}{},
+	}
+	newSimple = SimpleArray{
+		length: 0,
+		array:  []interface{}{},
+	}
+	inMiddleAdd(&oldSimple, 50000, time.Now())
+	inMiddleAdd(&newSimple, 50000, time.Now())
+
+	oldSimple = SimpleArrayOld{
+		length: 0,
+		array:  []interface{}{},
+	}
+	newSimple = SimpleArray{
+		length: 0,
+		array:  []interface{}{},
+	}
+	inMiddleAdd(&newSimple, 50000, time.Now())
+	inMiddleAdd(&oldSimple, 50000, time.Now())
 }

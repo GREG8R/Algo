@@ -10,16 +10,12 @@ func (a *VectorArray) Add(element interface{}, index int){
 	if len(a.array) == a.length {
 		length := a.length + 1
 		newArray := make([]interface{}, a.length + a.capResize)
-		for i := 0; i < length; i++{
-			if i < index {
-				newArray[i] = a.array[i]
-			}
-			if i == index{
-				newArray[i] = element
-			}
-			if i > index {
-				newArray[i] = a.array[i - 1]
-			}
+		for i := 0; i < index; i++{
+			newArray[i] = a.array[i]
+		}
+		newArray[index] = element
+		for i := index + 1; i < length; i++{
+			newArray[i] = a.array[i - 1]
 		}
 		a.array = newArray
 		a.length = length
