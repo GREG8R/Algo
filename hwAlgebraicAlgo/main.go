@@ -76,28 +76,28 @@ func powerLaunch(){
 
 	t := time.Now()
 	result := PowOfPowTwo(number, pow)
-	fmt.Printf("power of power two result: %f, time: %d\n", result, time.Now().Sub(t).Milliseconds())
+	fmt.Printf("power of power two result: %f, time: %d\n", result, time.Now().Sub(t).Nanoseconds())
 
 	t = time.Now()
 	result = PowOfComposition(number, pow)
-	fmt.Printf("power of composition result: %f, time: %d\n", result, time.Now().Sub(t).Milliseconds())
+	fmt.Printf("power of composition result: %f, time: %d\n", result, time.Now().Sub(t).Nanoseconds())
 
 	t = time.Now()
 	result = FastPow(number, pow)
-	fmt.Printf("fast power result: %f, time: %d\n\n", result, time.Now().Sub(t).Milliseconds())
+	fmt.Printf("fast power result: %f, time: %d\n\n", result, time.Now().Sub(t).Nanoseconds())
 
 	number = 2
 	pow = 20
-	fmt.Printf("test number = %f, power = %d\n", number, pow)
+	fmt.Printf("power test number = %f, power = %d\n", number, pow)
 	t = time.Now()
 	result = PowOfPowTwo(number, pow)
-	fmt.Printf("power of power two result: %f, time: %d\n", result, time.Now().Sub(t).Milliseconds())
+	fmt.Printf("power of power two result: %f, time: %d\n", result, time.Now().Sub(t).Nanoseconds())
 
 	t = time.Now()
 	result = PowOfComposition(number, pow)
-	fmt.Printf("power of composition result: %f, time: %d\n", result, time.Now().Sub(t).Milliseconds())
+	fmt.Printf("power of composition result: %f, time: %d\n", result, time.Now().Sub(t).Nanoseconds())
 
 	t = time.Now()
 	result = FastPow(number, pow)
-	fmt.Printf("fast power result: %f, time: %d\n\n", result, time.Now().Sub(t).Milliseconds())
+	fmt.Printf("fast power result: %f, time: %d\n\n", result, time.Now().Sub(t).Nanoseconds())
 }
