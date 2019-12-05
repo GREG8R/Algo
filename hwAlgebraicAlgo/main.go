@@ -88,7 +88,7 @@ func powerLaunch(){
 
 	number = 2
 	pow = 20
-	fmt.Printf("power test number = %f, power = %\n", number, pow)
+	fmt.Printf("power test number = %f, power = %d\n", number, pow)
 	t = time.Now()
 	result = PowOfPowTwo(number, pow)
 	fmt.Printf("power of power two result: %f, time: %d\n", result, time.Now().Sub(t).Nanoseconds())
