@@ -57,7 +57,7 @@ func runTest(n int){
 
 	t = time.Now()
 	ShellSort(mixFiveElementsArray1, simpleGaps)
-	fmt.Printf("mix five element array, time: %d\n\n", getTime(n, t))
+	fmt.Printf("mix five elements array, time: %d\n\n", getTime(n, t))
 
 	// sedgewick gaps
 	fmt.Println("sedgewick gaps shell sort")
@@ -71,7 +71,7 @@ func runTest(n int){
 
 	t = time.Now()
 	ShellSort(mixFiveElementsArray2, sedgewickGaps)
-	fmt.Printf("mix five element array, time: %d\n\n", getTime(n, t))
+	fmt.Printf("mix five elements array, time: %d\n\n", getTime(n, t))
 
 	if n > 2000000 {
 		return
@@ -89,7 +89,7 @@ func runTest(n int){
 
 	t = time.Now()
 	ShellSort(mixFiveElementsArray3, ciuraGaps)
-	fmt.Printf("mix five element array, time: %d\n\n", getTime(n, t))
+	fmt.Printf("mix five elements array, time: %d\n\n", getTime(n, t))
 }
 
 func getTime(n int, t time.Time) int64{
