@@ -6,29 +6,29 @@ import (
 	"testing"
 )
 
-func Compare(a1 Array, a2 []interface{}) bool{
+func Compare(a1 Array, a2 []interface{}) bool {
 	length := a1.GetLength()
 	arr := a1.GetArray()
-	if length != len(a2){
+	if length != len(a2) {
 		return false
 	}
 
-	for i := 0; i < length; i++{
-		if arr[i] != a2[i]{
+	for i := 0; i < length; i++ {
+		if arr[i] != a2[i] {
 			return false
 		}
 	}
 	return true
 }
 
-func TestSimpleArray_Run(t *testing.T){
+func TestSimpleArray_Run(t *testing.T) {
 	fmt.Println("simple array")
 	t.Run("add element to array", func(t *testing.T) {
 		testArray := []interface{}{1, 2, 3, 4}
 
 		simpleArray := &SimpleArray{
 			length: len(testArray),
-			array: testArray,
+			array:  testArray,
 		}
 
 		simpleArray.Add(12, 2)
@@ -43,7 +43,7 @@ func TestSimpleArray_Run(t *testing.T){
 
 		arr := &SimpleArray{
 			length: len(testArray),
-			array: testArray,
+			array:  testArray,
 		}
 
 		arr.Add(13, 2)
@@ -55,21 +55,21 @@ func TestSimpleArray_Run(t *testing.T){
 
 		removeElement := arr.Remove(2)
 		assert.Equal(t, 12, removeElement)
-		testArray =  []interface{}{1, 2, 3, 4}
+		testArray = []interface{}{1, 2, 3, 4}
 
 		res := Compare(arr, testArray)
 		assert.Equal(t, true, res)
 	})
 }
 
-func TestVectorArray_Run(t *testing.T){
+func TestVectorArray_Run(t *testing.T) {
 	fmt.Println("vector array")
 	t.Run("add element to array", func(t *testing.T) {
 		testArray := []interface{}{1, 2, 3, 4}
 
 		arr := &VectorArray{
-			length: len(testArray),
-			array: testArray,
+			length:    len(testArray),
+			array:     testArray,
 			capResize: 100,
 		}
 
@@ -84,8 +84,8 @@ func TestVectorArray_Run(t *testing.T){
 		testArray := []interface{}{1, 2, 12, 3, 4}
 
 		arr := &VectorArray{
-			length: len(testArray),
-			array: testArray,
+			length:    len(testArray),
+			array:     testArray,
 			capResize: 100,
 		}
 
@@ -105,14 +105,14 @@ func TestVectorArray_Run(t *testing.T){
 	})
 }
 
-func TestFactorArray_Run(t *testing.T){
+func TestFactorArray_Run(t *testing.T) {
 	fmt.Println("factor array")
 	t.Run("add element to array", func(t *testing.T) {
 		testArray := []interface{}{1, 2, 3, 4}
 
 		arr := &FactorArray{
-			length: len(testArray),
-			array: testArray,
+			length:       len(testArray),
+			array:        testArray,
 			factorResize: 2,
 		}
 
@@ -127,8 +127,8 @@ func TestFactorArray_Run(t *testing.T){
 		testArray := []interface{}{1, 2, 12, 3, 4}
 
 		arr := &FactorArray{
-			length: len(testArray),
-			array: testArray,
+			length:       len(testArray),
+			array:        testArray,
 			factorResize: 2,
 		}
 
@@ -148,7 +148,7 @@ func TestFactorArray_Run(t *testing.T){
 	})
 }
 
-func TestMatrixArray_Run(t *testing.T){
+func TestMatrixArray_Run(t *testing.T) {
 	fmt.Println("matrix array")
 	t.Run("add element to array", func(t *testing.T) {
 		testArray := []interface{}{1, 2, 3, 4, 5}
@@ -157,11 +157,11 @@ func TestMatrixArray_Run(t *testing.T){
 		marr[0] = testArray
 
 		arr := &MatrixArray{
-			length: 5,
-			array: marr,
+			length:       5,
+			array:        marr,
 			factorResize: 2,
-			countOfPart:1,
-			lengthPart:5,
+			countOfPart:  1,
+			lengthPart:   5,
 		}
 
 		arr.Add(12, 2)
@@ -180,11 +180,11 @@ func TestMatrixArray_Run(t *testing.T){
 		marr[0] = testArray
 
 		arr := &MatrixArray{
-			length: 5,
-			array: marr,
+			length:       5,
+			array:        marr,
 			factorResize: 2,
-			countOfPart:1,
-			lengthPart:5,
+			countOfPart:  1,
+			lengthPart:   5,
 		}
 
 		arr.Add(13, 2)
@@ -203,7 +203,7 @@ func TestMatrixArray_Run(t *testing.T){
 	})
 }
 
-func TestBufferedArray_Run(t *testing.T){
+func TestBufferedArray_Run(t *testing.T) {
 	fmt.Println("buffered array")
 	t.Run("push and pop elements to array", func(t *testing.T) {
 		testArray := []interface{}{1, 2, 3, nil}
@@ -321,12 +321,12 @@ func TestBufferedArray_Run(t *testing.T){
 	})
 }
 
-func TestPriorityQueue_Run(t *testing.T){
+func TestPriorityQueue_Run(t *testing.T) {
 	fmt.Println("priority queue")
 	t.Run("enqueue and dequeue elements to queue", func(t *testing.T) {
 		queue := Queue{
-			array: []*QueueWithPriority{},
-			last: -1,
+			array:                 []*QueueWithPriority{},
+			last:                  -1,
 			indexOfPriorityForGet: 0,
 		}
 

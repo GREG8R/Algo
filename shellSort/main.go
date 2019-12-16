@@ -6,14 +6,14 @@ import (
 	"time"
 )
 
-func main(){
+func main() {
 	runTest(2000)
 	runTest(20000)
 	runTest(2000000)
 	runTest(20000000)
 }
 
-func runTest(n int){
+func runTest(n int) {
 	// prepare data
 	arrayBeforeSort1 := generateArray(n)
 	sortArray := make([]int, n)
@@ -27,7 +27,7 @@ func runTest(n int){
 	ShellSort(sortArray, simpleGaps)
 	copy(mixTenPercentArray1, sortArray)
 	copy(mixFiveElementsArray1, sortArray)
-	mixArray(mixTenPercentArray1, n, n / 10)
+	mixArray(mixTenPercentArray1, n, n/10)
 	mixArray(mixFiveElementsArray1, n, 5)
 
 	arrayBeforeSort2 := make([]int, n)
@@ -92,17 +92,17 @@ func runTest(n int){
 	fmt.Printf("mix five elements array, time: %d\n\n", getTime(n, t))
 }
 
-func getTime(n int, t time.Time) int64{
-	if n <= 1000{
+func getTime(n int, t time.Time) int64 {
+	if n <= 1000 {
 		return time.Now().Sub(t).Nanoseconds()
 	}
-	if n <= 20000{
+	if n <= 20000 {
 		return time.Now().Sub(t).Microseconds()
 	}
 	return time.Now().Sub(t).Milliseconds()
 }
 
-func generateArray(n int) []int{
+func generateArray(n int) []int {
 	array := make([]int, n)
 	for i := 0; i < n; i++ {
 		array[i] = rand.Intn(n)
@@ -110,8 +110,8 @@ func generateArray(n int) []int{
 	return array
 }
 
-func mixArray(array []int, n int, countOfMix int){
-	for i := 0; i < countOfMix; i++{
+func mixArray(array []int, n int, countOfMix int) {
+	for i := 0; i < countOfMix; i++ {
 		index1 := rand.Intn(n)
 		index2 := rand.Intn(n)
 		tmp := array[index1]

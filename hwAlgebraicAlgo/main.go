@@ -42,12 +42,12 @@ import (
 	"time"
 )
 
-func main(){
+func main() {
 	fibLaunch()
 	powerLaunch()
 }
 
-func fibLaunch(){
+func fibLaunch() {
 	n := 45
 	fmt.Printf("fibonacci test n = %d\n", n)
 
@@ -68,7 +68,7 @@ func fibLaunch(){
 	fmt.Printf("fib matrix result: %d, time: %d\n\n", result, time.Now().Sub(t).Nanoseconds())
 }
 
-func powerLaunch(){
+func powerLaunch() {
 	number := 1.0000000001
 	pow := 10000000000
 

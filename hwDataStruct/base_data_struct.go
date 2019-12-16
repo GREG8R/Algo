@@ -47,20 +47,20 @@ import (
 	"time"
 )
 
-type Array interface{
+type Array interface {
 	Add(element interface{}, index int)
 	Remove(index int) interface{}
 	GetLength() int
 	GetArray() []interface{}
 }
 
-func main(){
+func main() {
 	testNewAndOldArrays()
 	testAllArraysParallels()
 	testAllArrayAddInMiddle()
 }
 
-func testAllArrayAddInMiddle(){
+func testAllArrayAddInMiddle() {
 	fmt.Println("Test all arrays")
 	simple := SimpleArray{
 		length: 0,
@@ -94,12 +94,12 @@ func testAllArrayAddInMiddle(){
 	inMiddleAdd(&matrix, 100000, time.Now())
 }
 
-func inMiddleAdd(arr Array, count int, t time.Time){
-	for i := 0; i < 10; i++{
+func inMiddleAdd(arr Array, count int, t time.Time) {
+	for i := 0; i < 10; i++ {
 		arr.Add(i, i)
 	}
-	for i := 10; i < count; i++{
-		arr.Add(i, i / 2)
+	for i := 10; i < count; i++ {
+		arr.Add(i, i/2)
 	}
 	outputString := ""
 	switch arr.(type) {
@@ -120,7 +120,7 @@ func inMiddleAdd(arr Array, count int, t time.Time){
 	fmt.Println(outputString)
 }
 
-func testAllArraysParallels (){
+func testAllArraysParallels() {
 	fmt.Println("Test all arrays")
 	simple := SimpleArray{
 		length: 0,
@@ -170,8 +170,8 @@ func testAllArraysParallels (){
 	wg.Wait()
 }
 
-func AddManyElements(arr Array, count int, wg *sync.WaitGroup, t time.Time){
-	for i := 0; i < count; i++{
+func AddManyElements(arr Array, count int, wg *sync.WaitGroup, t time.Time) {
+	for i := 0; i < count; i++ {
 		arr.Add(i, i)
 	}
 	outputString := ""
@@ -191,9 +191,9 @@ func AddManyElements(arr Array, count int, wg *sync.WaitGroup, t time.Time){
 }
 
 // создание слайса сразу того размера который нужен, избигаем копирования
-func makeSlice(count int, wg *sync.WaitGroup, t time.Time){
+func makeSlice(count int, wg *sync.WaitGroup, t time.Time) {
 	arr := make([]interface{}, count)
-	for i := 0; i < count; i++{
+	for i := 0; i < count; i++ {
 		arr[i] = i
 	}
 	fmt.Printf("make finished, count of operations: %d, time in milliseconds: %d\n", count, time.Now().Sub(t).Milliseconds())
@@ -201,16 +201,16 @@ func makeSlice(count int, wg *sync.WaitGroup, t time.Time){
 }
 
 // добавление элементов в стандартный динамический массив
-func app(count int, wg *sync.WaitGroup, t time.Time){
+func app(count int, wg *sync.WaitGroup, t time.Time) {
 	arr := []interface{}{}
-	for i := 0; i < count; i++{
+	for i := 0; i < count; i++ {
 		arr = append(arr, i)
 	}
 	fmt.Printf("app finished, count of operations: %d, time in milliseconds: %d\n", count, time.Now().Sub(t).Milliseconds())
 	wg.Done()
 }
 
-func testNewAndOldArrays (){
+func testNewAndOldArrays() {
 	fmt.Println("Test new and old arrays")
 	newFactor := FactorArray{
 		length:       0,

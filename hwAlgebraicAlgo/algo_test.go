@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestAlgoPow(t *testing.T){
+func TestAlgoPow(t *testing.T) {
 	t.Run("pow of composition", func(t *testing.T) {
 		var number float64
 		number = 2
@@ -53,7 +53,7 @@ func TestAlgoPow(t *testing.T){
 	})
 }
 
-func TestAlgoFib(t *testing.T){
+func TestAlgoFib(t *testing.T) {
 	t.Run("fib recursive", func(t *testing.T) {
 		result := FibRecursive(10)
 		assert.Equal(t, result, 55)
