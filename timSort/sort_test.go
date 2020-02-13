@@ -1,26 +1,19 @@
 package main
 
 import (
-	"fmt"
 	"github.com/magiconair/properties/assert"
-	"os"
 	"testing"
 )
 
 func TestInputOutput_Run(t *testing.T) {
 	t.Run("test read write file", func(t *testing.T){
-		res, err := os.Open("testFile")
-		if err != nil {
-			panic(err)
-		}
-		inputArray := GenerateFileForTest()
+		inputArray, in, out := GenerateFileForTest()
 		for i, k := range inputArray{
-			r := ReadNum(res, i)
-			fmt.Println(r)
+			r := ReadNum(in, i)
 			assert.Equal(t, k, r)
 		}
 
-		res.Close()
+		CloseFiles(in, out)
 	})
 }
 
@@ -31,24 +24,45 @@ func TestMergeSort_Run(t *testing.T) {
 		assert.Equal(t, array, []uint16{0, 1, 2, 2, 3, 4, 5, 6, 6, 7, 8, 9})
 	})
 
-	t.Run("test write in file sort", func(t *testing.T){
-		inputArray := GenerateFileForTest()
-		input := "testFile"
+	t.Run("test MergeSortFile", func(t *testing.T){
+		inputArray, in, out := GenerateFileForTest()
 
-		MergeSortFile(input, 0, len(inputArray) - 1)
+		MergeSortFile(in, out, 0, len(inputArray) - 1)
 		MergeSort(inputArray, 0, len(inputArray) - 1)
 
-		inputFile, err := os.Open(input)
-		if err != nil {
-			panic(err)
-		}
-
 		for i, k := range inputArray{
-			r := ReadNum(inputFile, i)
-			fmt.Println(r)
+			r := ReadNum(in, i)
 			assert.Equal(t, k, r)
 		}
 
-		inputFile.Close()
+		CloseFiles(in, out)
+	})
+
+	t.Run("test MergeSortFileWithOptimisation", func(t *testing.T){
+		inputArray, in, out := GenerateFileForTest()
+
+		MergeSortFileWithOptimisation(in, out, 0, len(inputArray) - 1)
+		MergeSort(inputArray, 0, len(inputArray) - 1)
+
+		for i, k := range inputArray{
+			r := ReadNum(in, i)
+			assert.Equal(t, k, r)
+		}
+
+		CloseFiles(in, out)
+	})
+
+	t.Run("test TimSort", func(t *testing.T){
+		inputArray, in, out := GenerateFileForTest()
+
+		TimSort(in, out, 0, len(inputArray) - 1)
+		MergeSort(inputArray, 0, len(inputArray) - 1)
+
+		for i, k := range inputArray{
+			r := ReadNum(in, i)
+			assert.Equal(t, k, r)
+		}
+
+		CloseFiles(in, out)
 	})
 }

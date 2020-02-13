@@ -2,33 +2,82 @@ package main
 
 import "os"
 
-func MergeSortFile(input string, left, right int){
+func MergeSortFile(in, out *os.File, left, right int){
 	if left >= right { return }
 	center := left + (right - left) / 2
-
-	//if right - left < 1024 {
-	//
-	//} else {
-		MergeSortFile(input, left, center)
-		MergeSortFile(input, center + 1, right)
-		MergeFile(input, left, center, right)
-	//}
+	MergeSortFile(in, out, left, center)
+	MergeSortFile(in, out, center + 1, right)
+	mergeFile(in, out, left, center, right)
 }
 
-func MergeFile(input string, left, center, right int){
-	res := "resFile"
-	resFile, err := os.Create(res)
-	if err != nil {
-		panic(err)
+func MergeSortFileWithOptimisation(in, out *os.File, left, right int){
+	if left >= right { return }
+	center := left + (right - left) / 2
+	if right - left < 1024 {
+		arr := make([]uint16, right - left + 1)
+		for i := left; i <= right; i++{
+			r := ReadNum(in, i)
+			arr[i - left] = r
+		}
+		MergeSort(arr, 0, len(arr) - 1)
+		for j := left; j <= right; j++{
+			current := arr[j - left]
+			WriteNum(in, j, current)
+		}
+	} else {
+		MergeSortFileWithOptimisation(in, out, left, center)
+		MergeSortFileWithOptimisation(in, out, center + 1, right)
+		mergeFile(in, out, left, center, right)
 	}
-	defer resFile.Close()
+}
 
-	inputFile, err := os.OpenFile(input, os.O_RDWR, 0666)
-	if err != nil {
-		panic(err)
+func TimSort(in, out *os.File, left, right int){
+	if left >= right { return }
+	center := left + (right - left) / 2
+	if right - left < 1024 {
+		arr := make([]uint16, right - left + 1)
+		for i := left; i <= right; i++{
+			r := ReadNum(in, i)
+			arr[i - left] = r
+		}
+
+		Qsort(arr, 0, len(arr) - 1)
+
+		for j := left; j <= right; j++{
+			current := arr[j - left]
+			WriteNum(in, j, current)
+		}
+	} else {
+		TimSort(in, out, left, center)
+		TimSort(in, out, center + 1, right)
+		mergeFile(in, out, left, center, right)
 	}
-	defer inputFile.Close()
+}
 
+func TimHeapSort(in, out *os.File, left, right int){
+	if left >= right { return }
+	center := left + (right - left) / 2
+	if right - left < 1024 {
+		arr := make([]uint16, right - left + 1)
+		for i := left; i <= right; i++{
+			r := ReadNum(in, i)
+			arr[i - left] = r
+		}
+
+		HeapSort(arr)
+
+		for j := left; j <= right; j++{
+			current := arr[j - left]
+			WriteNum(in, j, current)
+		}
+	} else {
+		TimSort(in, out, left, center)
+		TimSort(in, out, center + 1, right)
+		mergeFile(in, out, left, center, right)
+	}
+}
+
+func mergeFile(inputFile, resFile *os.File, left, center, right int){
 	a := left
 	b := center + 1
 	r := 0
@@ -78,46 +127,63 @@ func WriteNum(f *os.File, index int, num uint16) {
 	f.WriteAt([]byte{ byte(num / 256), byte(num % 256)}, offset)
 }
 
-//func WriteNum(f *os.File, num uint16) {
-//	f.Write([]byte{ byte(num / 256), byte(num % 256)})
-//}
 
-//func ReadNum(fileName string, k int) uint16{
-//	readFile, err := os.Open(fileName)
-//	if err != nil {
-//		panic(err)
-//	}
-//	defer readFile.Close()
-//	res := make([]byte, 2)
-//	offset := int64(k * 2)
-//	readFile.ReadAt(res, offset)
-//	result := uint16(res[0]) * uint16(256) + uint16(res[1])
-//	return result
-//}
+func Qsort(arr []uint16, left, right int){
+	if left >= right { return }
+	center := partition(arr, left, right)
+	Qsort(arr, left, center - 1)
+	Qsort(arr, center + 1, right)
+}
 
-//func WriteNum(fileName string, num uint16) {
-//	f, err := os.OpenFile(fileName, os.O_APPEND|os.O_WRONLY, 0600)
-//	if err != nil {
-//		panic(err)
-//	}
-//	defer f.Close()
-//
-//	f.Write([]byte{ byte(num / 256), byte(num % 256)})
-//}
+func partition(arr []uint16, left, right int) int{
+	i := left - 1
+	pivot := arr[right]
+	for j := left; j <= right; j++{
+		if arr[j] <= pivot{
+			i++
+			x := arr[i]
+			arr[i] = arr[j]
+			arr[j] = x
+		}
+	}
+	return i
+}
 
-//func WriteNumOfIndex(fileName string, index int, num uint16) {
-//	f, err := os.OpenFile(fileName, os.O_WRONLY, 0600)
-//	if err != nil {
-//		panic(err)
-//	}
-//	defer f.Close()
-//
-//	offset := int64(index * 2)
-//	f.WriteAt([]byte{ byte(num / 256), byte(num % 256)}, offset)
-//}
+func HeapSort(array []uint16) {
+	swap := func(x, y int) {
+		tmp := array[x]
+		array[x] = array[y]
+		array[y] = tmp
+	}
 
+	down := func(size, root int) {}
+	down = func(size, root int) {
+		l := root*2 + 1
+		r := l + 1
+		x := root
+		if l < size && array[l] > array[x] {
+			x = l
+		}
+		if r < size && array[r] > array[x] {
+			x = r
+		}
+		if x == root {
+			return
+		}
+		swap(root, x)
+		down(size, x)
+	}
 
+	for node := len(array)/2 - 1; node >= 0; node-- {
+		down(len(array), node)
+	}
 
+	down(len(array), 0)
+	for i := len(array) - 1; i >= 0; i-- {
+		swap(i, 0)
+		down(i, 0)
+	}
+}
 
 func MergeSort(arr []uint16, left, right int){
 	if left >= right { return }
@@ -125,10 +191,10 @@ func MergeSort(arr []uint16, left, right int){
 
 	MergeSort(arr, left, center)
 	MergeSort(arr, center + 1, right)
-	Merge(arr, left, center, right)
+	merge(arr, left, center, right)
 }
 
-func Merge(arr []uint16, left, center, right int){
+func merge(arr []uint16, left, center, right int){
 	res := make([]uint16, right - left + 1)
 	a := left
 	b := center + 1

@@ -6,30 +6,49 @@ import (
 )
 
 func main(){
+	n := 1000000
+	Go(n)
+	GoWithOpt(n)
+	GoTim(n)
+	GoTimHeap(n)
+}
 
-	n := 100
-	GenerateFile(n)
-	input := "inputFile"
+func Go(n int){
+	in, out := GenerateFile(n)
 	fmt.Printf("test for n = %d\n", n)
 	fmt.Println("merge sort")
 	t := time.Now()
-	MergeSortFile(input, 0, n)
+	MergeSortFile(in, out, 0, n)
 	fmt.Printf("time: %f\n", time.Now().Sub(t).Seconds())
+	CloseFiles(in, out)
+}
 
-	n = 1000
-	GenerateFile(n)
+func GoWithOpt(n int){
+	in, out := GenerateFile(n)
 	fmt.Printf("test for n = %d\n", n)
-	fmt.Println("merge sort")
-	t = time.Now()
-	MergeSortFile("inputFile", 0, n)
+	fmt.Println("merge sort with optimization")
+	t := time.Now()
+	MergeSortFileWithOptimisation(in, out, 0, n)
 	fmt.Printf("time: %f\n", time.Now().Sub(t).Seconds())
+	CloseFiles(in, out)
+}
 
-	n = 10000
-	GenerateFile(n)
+func GoTim(n int){
+	in, out := GenerateFile(n)
 	fmt.Printf("test for n = %d\n", n)
-	fmt.Println("merge sort")
-	t = time.Now()
-	MergeSortFile("inputFile", 0, n)
+	fmt.Println("tim sort with qsort")
+	t := time.Now()
+	TimSort(in, out, 0, n)
 	fmt.Printf("time: %f\n", time.Now().Sub(t).Seconds())
+	CloseFiles(in, out)
+}
 
+func GoTimHeap(n int){
+	in, out := GenerateFile(n)
+	fmt.Printf("test for n = %d\n", n)
+	fmt.Println("tim sort with heap")
+	t := time.Now()
+	TimHeapSort(in, out, 0, n)
+	fmt.Printf("time: %f\n", time.Now().Sub(t).Seconds())
+	CloseFiles(in, out)
 }
