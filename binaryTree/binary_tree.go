@@ -130,19 +130,15 @@ func (t *Node) Search(x int) bool {
 	if t == nil {
 		return false
 	}
-
 	if t.Value == x {
 		return true
 	}
-
 	if t.Value > x{
 		return t.LeftNode.Search(x)
 	}
-
 	if t.Value < x{
 		return t.RightNode.Search(x)
 	}
-
 	return false
 }
 
