@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func main(){
+func main() {
 
 	n := 10000
 
@@ -27,7 +27,6 @@ func main(){
 	randomTreap := GenerateRandom(n)
 	randomSortTreap := GenerateSort(n)
 
-	//fmt.Printf("test for treap n = %d\n", n)
 	fmt.Println("search for random treap")
 	t = time.Now()
 	SearchInTreap(randomTreap, n)
@@ -40,16 +39,15 @@ func main(){
 
 }
 
-func SearchInRBTree(root *RedBlackNode, n int){
-	for i := 0; i < n / 10; i++{
+func SearchInRBTree(root *RedBlackNode, n int) {
+	for i := 0; i < n/10; i++ {
 		r := rand.Intn(n)
 		root.Search(r)
 	}
 }
 
-
-func SearchInTreap(root *Treap, n int){
-	for i := 0; i < n / 10; i++{
+func SearchInTreap(root *Treap, n int) {
+	for i := 0; i < n/10; i++ {
 		r := rand.Intn(n)
 		root.Search(r)
 	}

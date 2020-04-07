@@ -5,16 +5,16 @@ import (
 	"sort"
 )
 
-type Treap struct{
-	x int
-	y int
-	Left *Treap
+type Treap struct {
+	x     int
+	y     int
+	Left  *Treap
 	Right *Treap
 }
 
 func GenerateRandom(n int) *Treap {
 	arr := make([]int, n)
-	for i := 0; i < n; i++{
+	for i := 0; i < n; i++ {
 		arr[i] = rand.Intn(n)
 	}
 
@@ -23,7 +23,7 @@ func GenerateRandom(n int) *Treap {
 
 func GenerateSort(n int) *Treap {
 	arr := make([]int, n)
-	for i := 0; i < n; i++{
+	for i := 0; i < n; i++ {
 		arr[i] = rand.Intn(n)
 	}
 	sort.Ints(arr)
@@ -31,10 +31,10 @@ func GenerateSort(n int) *Treap {
 	return BuildTreap(arr)
 }
 
-func BuildTreap(arr []int) *Treap{
+func BuildTreap(arr []int) *Treap {
 	root := InitTreap(arr[0], rand.Intn(100000))
 
-	for i := 1; i < len(arr); i++{
+	for i := 1; i < len(arr); i++ {
 		root = root.Add(arr[i])
 	}
 
@@ -42,12 +42,16 @@ func BuildTreap(arr []int) *Treap{
 }
 
 func InitTreap(x int, y int) *Treap {
-	return &Treap{ x, y, nil, nil }
+	return &Treap{x, y, nil, nil}
 }
 
 func Merge(l, r *Treap) *Treap {
-	if l == nil { return r }
-	if r == nil { return l }
+	if l == nil {
+		return r
+	}
+	if r == nil {
+		return l
+	}
 
 	if l.y > r.y {
 		newR := Merge(l.Right, r)
@@ -58,7 +62,7 @@ func Merge(l, r *Treap) *Treap {
 	}
 }
 
-func (t *Treap) Split(x int) (l, r *Treap){
+func (t *Treap) Split(x int) (l, r *Treap) {
 	var newTree *Treap = nil
 	if t.x <= x {
 		if t.Right == nil {
@@ -66,14 +70,14 @@ func (t *Treap) Split(x int) (l, r *Treap){
 		} else {
 			newTree, r = t.Right.Split(x)
 		}
-		l = &Treap{ t.x, t.y, t.Left, newTree}
+		l = &Treap{t.x, t.y, t.Left, newTree}
 	} else {
-		if t.Left == nil{
+		if t.Left == nil {
 			l = nil
 		} else {
 			l, newTree = t.Left.Split(x)
 		}
-		r = &Treap{ t.x, t.y, newTree, t.Right}
+		r = &Treap{t.x, t.y, newTree, t.Right}
 	}
 	return l, r
 }
@@ -97,17 +101,17 @@ func (t *Treap) Search(x int) bool {
 	if t.x == x {
 		return true
 	}
-	if t.x > x{
+	if t.x > x {
 		return t.Left.Search(x)
 	}
-	if t.x < x{
+	if t.x < x {
 		return t.Right.Search(x)
 	}
 	return false
 }
 
-func (t *Treap) TreapValues(array *[]int){
-	if t.Left != nil{
+func (t *Treap) TreapValues(array *[]int) {
+	if t.Left != nil {
 		t.Left.TreapValues(array)
 	}
 	*array = append(*array, t.x)

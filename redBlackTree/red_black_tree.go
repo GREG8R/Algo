@@ -24,7 +24,7 @@ type RedBlackNode struct {
 
 func GenerateRandomRB(n int) *RedBlackTree {
 	arr := make([]int, n)
-	for i := 0; i < n; i++{
+	for i := 0; i < n; i++ {
 		arr[i] = rand.Intn(n)
 	}
 
@@ -33,7 +33,7 @@ func GenerateRandomRB(n int) *RedBlackTree {
 
 func GenerateSortRB(n int) *RedBlackTree {
 	arr := make([]int, n)
-	for i := 0; i < n; i++{
+	for i := 0; i < n; i++ {
 		arr[i] = rand.Intn(n)
 	}
 	sort.Ints(arr)
@@ -41,12 +41,12 @@ func GenerateSortRB(n int) *RedBlackTree {
 	return Build(arr)
 }
 
-func Build(arr []int) *RedBlackTree{
+func Build(arr []int) *RedBlackTree {
 	tree := &RedBlackTree{
 		Root: nil,
 	}
 
-	for i := 0; i < len(arr); i++{
+	for i := 0; i < len(arr); i++ {
 		tree.Insert(arr[i])
 	}
 
@@ -130,7 +130,6 @@ func (t *RedBlackTree) Insert(key int) {
 	t.InsertFixup(x)
 }
 
-
 func (t *RedBlackTree) InsertFixup(x *RedBlackNode) {
 	var y *RedBlackNode = nil
 
@@ -171,7 +170,6 @@ func (t *RedBlackTree) InsertFixup(x *RedBlackNode) {
 	t.Root.Color = Black
 }
 
-
 func (node *RedBlackNode) Search(x int) bool {
 	if node == nil {
 		return false
@@ -179,17 +177,17 @@ func (node *RedBlackNode) Search(x int) bool {
 	if node.Value == x {
 		return true
 	}
-	if node.Value > x{
+	if node.Value > x {
 		return node.Left.Search(x)
 	}
-	if node.Value < x{
+	if node.Value < x {
 		return node.Right.Search(x)
 	}
 	return false
 }
 
-func (node *RedBlackNode) Values(array *[]int){
-	if node.Left != nil{
+func (node *RedBlackNode) Values(array *[]int) {
+	if node.Left != nil {
 		node.Left.Values(array)
 	}
 	*array = append(*array, node.Value)
@@ -197,70 +195,3 @@ func (node *RedBlackNode) Values(array *[]int){
 		node.Right.Values(array)
 	}
 }
-
-//func Print(node *RedBlackNode){
-//	fmt.Printf("   %d %d", node.Value, node.Color)
-//}
-//
-//func TreePrint(node *RedBlackNode){
-//	if node.Left != nil {
-//		Print(node.Left)
-//	}
-//	if node.Right != nil {
-//		Print(node.Right)
-//	}
-//
-//	if node.Left != nil {
-//		TreePrint(node.Left)
-//	}
-//	if node.Right != nil {
-//		TreePrint(node.Right)
-//	}
-//}
-
-//// @param: node, a RedBlackNode
-//// @param: node, the node with the smallest key rooted at node
-//public RedBlackNode<T> treeMinimum(RedBlackNode<T> node){
-//
-//// while there is a smaller key, keep going left
-//while (!isNil(node.left))
-//node = node.left;
-//return node;
-//}// end treeMinimum(RedBlackNode node)
-
-//func (t *RedBlackTree) RightRotateFixup (y *RedBlackNode){
-//	if y.Right == nil && y.Left.Right == nil{
-//		y.NumRight = 0
-//		y.NumLeft = 0
-//		y.Left.NumRight = 1
-//	}	else if y.Right == nil && y.Left.Right != nil{
-//		y.NumRight = 0
-//		y.NumLeft = 1 + y.Left.Right.NumRight + y.Left.Right.NumLeft
-//		y.Left.NumRight = 2 + y.Left.Right.NumRight + y.Left.Right.NumLeft
-//	} else if y.Right != nil && y.Left.Right == nil{
-//		y.NumLeft = 0
-//		y.Left.NumRight = 2 + y.Right.NumRight + y.Right.NumLeft
-//
-//	}	else{
-//		y.NumLeft = 1 + y.Left.Right.NumRight + y.Left.Right.NumLeft
-//		y.Left.NumRight = 3 + y.Right.NumRight + y.Right.NumLeft + y.Left.Right.NumRight + y.Left.Right.NumLeft
-//	}
-//}
-
-//func (t *RedBlackTree) LeftRotateFixup(x *RedBlackNode){
-//	if x.Left == nil && x.Right.Left == nil{
-//		x.NumLeft = 0
-//		x.NumRight = 0
-//		x.Right.NumLeft = 1
-//	} else if x.Left == nil && x.Right.Left != nil{
-//		x.NumLeft = 0
-//		x.NumRight = 1 + x.Right.Left.NumLeft + x.Right.Left.NumRight
-//		x.Right.NumLeft = 2 + x.Right.Left.NumLeft + x.Right.Left.NumRight
-//	} else if x.Left != nil && x.Right.Left == nil{
-//		x.NumRight = 0
-//		x.Right.NumLeft = 2 + x.Left.NumLeft + x.Left.NumRight
-//	} else{
-//		x.NumRight = 1 + x.Right.Left.NumLeft + x.Right.Left.NumRight
-//		x.Right.NumLeft = 3 + x.Left.NumLeft + x.Left.NumRight + x.Right.Left.NumLeft + x.Right.Left.NumRight
-//	}
-//}
