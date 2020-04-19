@@ -89,10 +89,35 @@ func King(strPosition string) []uint64 {
 	return result
 }
 
-func Horse(strPosition string) []uint64 {
+func Knight(strPosition string) []uint64 {
 	result := make([]uint64, 2)
+	position, _ := strconv.Atoi(strPosition)
 
+	k := uint64(1) << position
+	nA := uint64(0xFEFEFEFEFEFEFEFE)
+	nAB := uint64(0xFCFCFCFCFCFCFCFC)
+	nGH := uint64(0x3F3F3F3F3F3F3F3F)
+	nH := uint64(0x7F7F7F7F7F7F7F7F)
+	p := make([]uint64, 10)
+	p[1] = (k & nA) << 15
+	p[2] = (k & nH) << 17
+	p[3] = (k & nGH) << 10
+	p[9] = (k & nAB) << 6
 
+	p[4] = (k & nGH) >> 6
+	p[6] = (k & nH) >> 15
+	p[7] = (k & nA) >> 17
+	p[8] = (k & nAB) >> 10
+
+	result[1] = p[7] | p[8] | p[9] |
+				p[4] | 	      p[6] |
+				p[1] | p[2] | p[3]
+
+	for _, v := range p {
+		if v > 0 {
+			result[0]++
+		}
+	}
 
 	return result
 }
