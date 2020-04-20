@@ -17,12 +17,7 @@ func Test_Run(t *testing.T) {
 		{3, 6},
 	}
 
-	graph := Build(8, 3)
-	for i, g_i := range array {
-		for _, g_i_j := range g_i {
-			graph.adjacencyVector[i] = append(graph.adjacencyVector[i], g_i_j)
-		}
-	}
+	graph := Build(8, 3, array)
 
 	t.Run("test invert", func(t *testing.T) {
 		invertGraph := graph.invert()

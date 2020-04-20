@@ -6,7 +6,7 @@ type GraphAdjacencyVector struct {
 	capacityOfVectors int
 }
 
-func Build(countOfNodes, capacityOfVectors int) *GraphAdjacencyVector {
+func Build(countOfNodes, capacityOfVectors int, array [][]int) *GraphAdjacencyVector {
 	graph := &GraphAdjacencyVector{
 		adjacencyVector:   make([][]int, countOfNodes),
 		countOfNodes:      countOfNodes,
@@ -15,6 +15,12 @@ func Build(countOfNodes, capacityOfVectors int) *GraphAdjacencyVector {
 
 	for i := 0; i < countOfNodes; i++ {
 		graph.adjacencyVector[i] = make([]int, 0, capacityOfVectors)
+	}
+
+	for i, g_i := range array {
+		for _, g_i_j := range g_i {
+			graph.adjacencyVector[i] = append(graph.adjacencyVector[i], g_i_j)
+		}
 	}
 
 	return graph
@@ -62,7 +68,7 @@ func (graph *GraphAdjacencyVector) GFS2(indexComponent int, components []int, no
 }
 
 func (graph *GraphAdjacencyVector) invert() *GraphAdjacencyVector {
-	invertedGraph := Build(graph.countOfNodes, graph.capacityOfVectors)
+	invertedGraph := Build(graph.countOfNodes, graph.capacityOfVectors, [][]int{})
 
 	for i := range graph.adjacencyVector {
 		for _, g_i_j := range graph.adjacencyVector[i] {
