@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestRedBlackTree_Run(t *testing.T) {
+func Test_Run(t *testing.T) {
 
 	t.Run("test topology sort", func(t *testing.T) {
 		array := [][]int{

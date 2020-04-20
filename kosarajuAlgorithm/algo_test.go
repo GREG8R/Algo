@@ -5,26 +5,26 @@ import (
 	"testing"
 )
 
-func TestRedBlackTree_Run(t *testing.T) {
+func Test_Run(t *testing.T) {
+	array := [][]int{
+		{1},
+		{2, 4, 5},
+		{3, 6},
+		{2, 7},
+		{0, 5},
+		{6},
+		{5},
+		{3, 6},
+	}
+
+	graph := Build(8, 3)
+	for i, g_i := range array {
+		for _, g_i_j := range g_i {
+			graph.adjacencyVector[i] = append(graph.adjacencyVector[i], g_i_j)
+		}
+	}
 
 	t.Run("test invert", func(t *testing.T) {
-		array := [][]int{
-			{1},
-			{2, 4, 5},
-			{3, 6},
-			{2, 7},
-			{0, 5},
-			{6},
-			{5},
-			{3, 6},
-		}
-
-		graph := Build(8, 3)
-		for i, g_i := range array {
-			for _, g_i_j := range g_i {
-				graph.adjacencyVector[i] = append(graph.adjacencyVector[i], g_i_j)
-			}
-		}
 		invertGraph := graph.invert()
 
 		invertArray := [][]int{
@@ -46,24 +46,6 @@ func TestRedBlackTree_Run(t *testing.T) {
 	})
 
 	t.Run("test kosaraju", func(t *testing.T) {
-		array := [][]int{
-			{1},
-			{2, 4, 5},
-			{3, 6},
-			{2, 7},
-			{0, 5},
-			{6},
-			{5},
-			{3, 6},
-		}
-
-		graph := Build(8, 3)
-		for i, g_i := range array {
-			for _, g_i_j := range g_i {
-				graph.adjacencyVector[i] = append(graph.adjacencyVector[i], g_i_j)
-			}
-		}
-
 		comp := []int{3, 3, 2, 2, 3, 1, 1, 2}
 
 		result := graph.GetStronglyConnectedComponents()
