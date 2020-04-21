@@ -21,14 +21,11 @@ func Init(n int) *HashTable {
 }
 
 func (ht *HashTable) Set(key int, value interface{}) {
-	if ht.length + 1 == ht.capacity{
+	if ht.length * 2 >= ht.capacity{
 		scale(ht)
 	}
 	i := 0
 	for {
-		if i >= ht.capacity {
-			scale(ht)
-		}
 		position := ht.hashFunc(key, i)
 		if ht.nodes[position].value == nil || ht.nodes[position].isDeleted {
 			ht.nodes[position].key = key
@@ -90,7 +87,7 @@ func (ht *HashTable) swap(pos1, pos2 int){
 }
 
 func scale(ht *HashTable) {
-	newCap := ht.capacity * 2
+	newCap := ht.capacity * 5
 	newHt := Init(newCap)
 	for _, n := range ht.nodes{
 		if !n.isDeleted && n.value != nil {

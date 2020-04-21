@@ -6,10 +6,10 @@ import (
 	"testing"
 )
 
-func TestRedBlackTree_Run(t *testing.T) {
+func Test_Run(t *testing.T) {
 
 	t.Run("test hash table", func(t *testing.T) {
-		array := []int{4, 64, 54, 9, 19, 29, 69, 8, 0}
+		array := []int{4, 64, 54, 9, 19, 49, 69, 8, 0}
 
 		ht := Init(10)
 
@@ -20,14 +20,6 @@ func TestRedBlackTree_Run(t *testing.T) {
 		ht.Delete(9)
 		assert.Equal(t, ht.nodes[9].key, 9)
 		assert.Equal(t, ht.nodes[9].isDeleted, true)
-		assert.Equal(t, ht.nodes[2].key, 29)
-		assert.Equal(t, ht.nodes[2].isDeleted, false)
-
-		ht.Get(29)
-		assert.Equal(t, ht.nodes[9].key, 29)
-		assert.Equal(t, ht.nodes[9].isDeleted, false)
-		assert.Equal(t, ht.nodes[2].key, 9)
-		assert.Equal(t, ht.nodes[2].isDeleted, true)
 
 		for _, i := range array {
 			assert.Equal(t, ht.Get(i), fmt.Sprintf("some_value_%d", i))
