@@ -64,7 +64,39 @@ func substring(str string, a, b int) string{
 	return string(arr[a:b])
 }
 
-func kmp(){
-
+func kmp(text, pattern string) int{
+	pi := computePiFast(pattern)
+	n := len(text)
+	q := 0
+	for i := 0; i < n; i++{
+		for q > 0 && text[i] != pattern[q] {
+			q = pi[q - 1]
+		}
+		if text[i] == pattern[q]{
+			q++
+		}
+		if q == len(pattern) {
+			return i - len(pattern) + 1
+		}
+	}
+	return -1
 }
 
+
+func computePiFast(pattern string) []int{
+	n := len(pattern)
+	pi := make([]int, n)
+	pi[0] = 0
+	for i := 1; i < n; i++{
+		q := pi[i - 1]
+		for q > 0 && pattern[i] != pattern[q] {
+			q = pi[q - 1]
+		}
+		if pattern[i] == pattern[q]{
+			q++
+		}
+		pi[i] = q
+	}
+
+	return pi
+}
