@@ -1,0 +1,4 @@
+github.com/dchest/siphash v1.2.1 h1:4cLinnzVJDKxTCl9B01807Yiy+W7ZzVHj/KIroQRvT4=
+github.com/dchest/siphash v1.2.1/go.mod h1:q+IRvb2gOSrUnYoPqHiyHXS0FOBBOdl6tONBlVnOnt4=
+github.com/dgryski/go-bits v0.0.0-20180113010104-bd8a69a71dc2 h1:2+yip7nN/auel0PDwY7SIaTOxQPI2NwdkZkvpgtc3Pk=
+github.com/dgryski/go-bits v0.0.0-20180113010104-bd8a69a71dc2/go.mod h1:/9UYwwvZuEgp+mQ4960SHWCU1FS+FgdFX+m5ExFByNs=
